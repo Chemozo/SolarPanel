@@ -76,6 +76,7 @@
     <Compile Include="ViewModel\Helpers\AccuWeatherAPI.cs" />
     <Compile Include="ViewModel\Helpers\PanelAngle.cs" />
     <Compile Include="ViewModel\Helpers\SystemMonitorHelper.cs" />
+    <Compile Include="ViewModel\SettingsVM.cs" />
     <Compile Include="ViewModel\StatusVM.cs" />
     <Compile Include="View\Status.xaml.cs">
       <DependentUpon>Status.xaml</DependentUpon>
