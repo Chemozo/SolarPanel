@@ -127,14 +127,14 @@ namespace SolarPanel.ViewModel
             {
                 RelativeHumidity = 5
             };
-            await Task.Delay(5000);
+            await Task.Delay(30000);
             GetCurrentConditions();
         }
         
         public async void GetCPUTemperature()
         {
             SystemMonitor = await SystemMonitorHelper.GetTemperature();
-            await Task.Delay(5000);
+            await Task.Delay(10000);
             GetCPUTemperature();
         }
 
@@ -142,9 +142,21 @@ namespace SolarPanel.ViewModel
         {
             if (Weather.RelativeHumidity < MaxHumidity && SystemMonitor.CPUTemperture < MaxTemperature)
             {
-                
-                //CalculateSunPosition
+                Position sunPosition = await PanelAngle.CalculateSunPosition(DateTime.Now, 194326, -991332);
+                if (sunPosition.Altitude > 20 || sunPosition.Altitude < 160)
+                {
+                    Position aux = await PanelAngle.CalculateSunPosition(DateTime.Now, 194326, -991332);
+                    aux.Altitude = Math.Round(aux.Altitude, 2);
+                    Position = aux;
+                    Console.WriteLine(Position.Altitude);
+                }
+                else if (sunPosition.Altitude > 20)
+                {
+                    Position.Altitude = 160;
+                }
             }
+            await Task.Delay(5000);
+            MovePanel();
         }
 
         private void OnPropertyChanged(string propertyName)
