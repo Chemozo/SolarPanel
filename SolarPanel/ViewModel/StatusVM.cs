@@ -143,16 +143,19 @@ namespace SolarPanel.ViewModel
             if (Weather.RelativeHumidity < MaxHumidity && SystemMonitor.CPUTemperture < MaxTemperature)
             {
                 Position sunPosition = await PanelAngle.CalculateSunPosition(DateTime.Now, 194326, -991332);
-                if (sunPosition.Altitude > 20 || sunPosition.Altitude < 160)
+                if (sunPosition.Altitude > 20 && sunPosition.Altitude < 160)
                 {
                     Position aux = await PanelAngle.CalculateSunPosition(DateTime.Now, 194326, -991332);
                     aux.Altitude = Math.Round(aux.Altitude, 2);
                     Position = aux;
                     Console.WriteLine(Position.Altitude);
                 }
-                else if (sunPosition.Altitude > 20)
+                else if (sunPosition.Altitude < 20)
                 {
-                    Position.Altitude = 160;
+                    Position = new Position
+                    {
+                        Altitude = 160
+                    };
                 }
             }
             await Task.Delay(5000);
