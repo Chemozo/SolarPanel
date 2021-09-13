@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SolarPanel.View
 {
     /// <summary>
-    /// Interaction logic for Status.xaml
+    /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class Status : Page
+    public partial class Settings : Page
     {
-        public Status()
+        public Settings()
         {
             InitializeComponent();
         }

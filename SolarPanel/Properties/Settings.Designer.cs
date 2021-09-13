@@ -23,21 +23,27 @@ namespace SolarPanel.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("85")]
         public int MaxTemperature {
             get {
                 return ((int)(this["MaxTemperature"]));
             }
+            set {
+                this["MaxTemperature"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public int MaxHumidity {
             get {
                 return ((int)(this["MaxHumidity"]));
+            }
+            set {
+                this["MaxHumidity"] = value;
             }
         }
     }

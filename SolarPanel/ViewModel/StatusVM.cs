@@ -1,7 +1,10 @@
-﻿using Prism.Commands;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using Prism.Commands;
 using SolarPanel.Model;
 using SolarPanel.ViewModel.Commands;
 using SolarPanel.ViewModel.Helpers;
+using SolarPanel.ViewModel.Navigation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,8 +17,60 @@ using static SolarPanel.Model.SunPosition;
 
 namespace SolarPanel.ViewModel
 {
-    class StatusVM : INotifyPropertyChanged
+    public class StatusVM : ViewModelBase
     {
+        //Navigation
+        private IFrameNavigationService _navigationService;
+        private string _myProperty = "MainPageText";
+        public string MainPageText
+        {
+            get
+            {
+                return _myProperty;
+            }
+
+            set
+            {
+                if (_myProperty == value)
+                {
+                    return;
+                }
+
+                _myProperty = value;
+                RaisePropertyChanged();
+            }
+        }
+        private RelayCommand _page1Command;
+        public RelayCommand Page1Command
+        {
+            get
+            {
+                return _page1Command
+                    ?? (_page1Command = new RelayCommand(
+                    () =>
+                    {
+                        _navigationService.NavigateTo("SettingsView");
+                    }));
+            }
+        }
+        private RelayCommand _page2Command;
+
+        public RelayCommand Page2Command
+        {
+            get
+            {
+                return _page2Command
+                       ?? (_page2Command = new RelayCommand(
+                           () =>
+                           {
+                               _navigationService.NavigateTo("Page2");
+                           }));
+            }
+        }
+
+        
+
+        //Navigation end
         public DelegateCommand LoadedCommand { get; set; }
 
         private Weather weather;
@@ -26,7 +81,7 @@ namespace SolarPanel.ViewModel
             set 
             { 
                 weather = value;
-                OnPropertyChanged("Weather");
+                RaisePropertyChanged();
             }
         }
 
@@ -38,7 +93,7 @@ namespace SolarPanel.ViewModel
             set 
             { 
                 systemMonitor = value;
-                OnPropertyChanged("SystemMonitor");
+                RaisePropertyChanged();
             }
         }
 
@@ -50,7 +105,7 @@ namespace SolarPanel.ViewModel
             set 
             { 
                 position = value;
-                OnPropertyChanged("Position");
+                RaisePropertyChanged();
             }
         }
 
@@ -58,11 +113,11 @@ namespace SolarPanel.ViewModel
 
         public int MaxHumidity
         {
-            get { return maxHumidity; }
+            get { return Properties.Settings.Default.MaxHumidity; }
             set 
             { 
                 maxHumidity = value;
-                OnPropertyChanged("MaxHumidity");
+                RaisePropertyChanged();
             }
         }
 
@@ -70,24 +125,25 @@ namespace SolarPanel.ViewModel
 
         public int MaxTemperature
         {
-            get { return maxTemperature; }
+            get { return Properties.Settings.Default.MaxTemperature; }
             set 
             { 
                 maxTemperature = value;
-                OnPropertyChanged("MaxTemperature");
+                RaisePropertyChanged();
             }
         }
 
 
-        public StatusVM()
+        public StatusVM(IFrameNavigationService navigationService)
         {
+            _navigationService = navigationService;
+
             LoadedCommand = new DelegateCommand(RunAsyncMethods);
             
 
-            maxHumidity = Properties.Settings.Default.MaxHumidity;
-            maxTemperature = Properties.Settings.Default.MaxTemperature;
-
             
+
+            Console.WriteLine(Properties.Settings.Default.MaxTemperature);
             
 
             if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
@@ -110,8 +166,7 @@ namespace SolarPanel.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        
         public async void RunAsyncMethods()
         {
             GetCPUTemperature();
@@ -160,11 +215,6 @@ namespace SolarPanel.ViewModel
             }
             await Task.Delay(5000);
             MovePanel();
-        }
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
