@@ -113,7 +113,7 @@ namespace SolarPanel.ViewModel
 
         public int MaxHumidity
         {
-            get { return maxHumidity; }
+            get { return Properties.Settings.Default.MaxHumidity; }
             set 
             { 
                 maxHumidity = value;
@@ -125,7 +125,7 @@ namespace SolarPanel.ViewModel
 
         public int MaxTemperature
         {
-            get { return maxTemperature; }
+            get { return Properties.Settings.Default.MaxTemperature; }
             set 
             { 
                 maxTemperature = value;
@@ -141,8 +141,7 @@ namespace SolarPanel.ViewModel
             LoadedCommand = new DelegateCommand(RunAsyncMethods);
             
 
-            maxHumidity = Properties.Settings.Default.MaxHumidity;
-            maxTemperature = Properties.Settings.Default.MaxTemperature;
+            
 
             Console.WriteLine(Properties.Settings.Default.MaxTemperature);
             

@@ -33,30 +33,18 @@ namespace SolarPanel.ViewModel
                 RaisePropertyChanged();
             }
         }
-        private RelayCommand _page1Command;
-        public RelayCommand Page1Command
-        {
-            get
-            {
-                return _page1Command
-                    ?? (_page1Command = new RelayCommand(
-                    () =>
-                    {
-                        _navigationService.NavigateTo("SettingsView");
-                    }));
-            }
-        }
-        private RelayCommand _page2Command;
+        
+        private RelayCommand _status;
 
-        public RelayCommand Page2Command
+        public RelayCommand Status
         {
             get
             {
-                return _page2Command
-                       ?? (_page2Command = new RelayCommand(
+                return _status
+                       ?? (_status = new RelayCommand(
                            () =>
                            {
-                               _navigationService.NavigateTo("Page2");
+                               _navigationService.NavigateTo("StatusView");
                            }));
             }
         }
@@ -66,11 +54,12 @@ namespace SolarPanel.ViewModel
 
         public int MaxHumidity
         {
-            get { return maxHumidity; }
+            get { return Properties.Settings.Default.MaxHumidity; }
             set
             {
-                maxHumidity = value;
-                OnPropertyChanged("MaxHumidity");
+                Properties.Settings.Default.MaxHumidity = value;
+                Properties.Settings.Default.Save();
+                RaisePropertyChanged();
             }
         }
 
@@ -78,27 +67,21 @@ namespace SolarPanel.ViewModel
 
         public int MaxTemperature
         {
-            get { return maxTemperature; }
+            get { return Properties.Settings.Default.MaxTemperature; }
             set
             {
-                maxTemperature = value;
-                OnPropertyChanged("MaxTemperature");
+                Properties.Settings.Default.MaxTemperature = value;
+                Properties.Settings.Default.Save();
+                RaisePropertyChanged();
             }
         }
 
         public SettingsVM(IFrameNavigationService navigationService)
         {
             _navigationService = navigationService;
-
-            maxHumidity = Properties.Settings.Default.MaxHumidity;
-            maxTemperature = Properties.Settings.Default.MaxTemperature;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            
+            //maxHumidity = Properties.Settings.Default.MaxHumidity;
+            //maxTemperature = Properties.Settings.Default.MaxTemperature;
         }
     }
 }

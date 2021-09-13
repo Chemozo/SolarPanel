@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SolarPanel.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MaxTemperature" Type="System.Int32" Scope="Application">
+    <Setting Name="MaxTemperature" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">85</Value>
     </Setting>
-    <Setting Name="MaxHumidity" Type="System.Int32" Scope="Application">
+    <Setting Name="MaxHumidity" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>
     </Setting>
   </Settings>
