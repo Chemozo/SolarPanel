@@ -177,11 +177,11 @@ namespace SolarPanel.ViewModel
 
         public async void GetCurrentConditions()
         {
-            //Weather = await AccuWeatherAPI.GetHumidity();
-            Weather = new Weather
-            {
-                RelativeHumidity = 5
-            };
+            Weather = await AccuWeatherAPI.GetHumidity();
+            //Weather = new Weather
+            //{
+            //    RelativeHumidity = 5
+            //};
             await Task.Delay(30000);
             GetCurrentConditions();
         }
