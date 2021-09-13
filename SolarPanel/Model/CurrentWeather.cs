@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SolarPanel.Model
 {
-    class CurrentWeather
+    public class CurrentWeather
     {
         // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
         public class Units

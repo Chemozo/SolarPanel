@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SolarPanel.Model
 {
-    class SunPosition
+    public class SunPosition
     {
         public class Position
         {

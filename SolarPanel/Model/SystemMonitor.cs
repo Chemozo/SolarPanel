@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SolarPanel.Model
 {
-    class SystemMonitor
+    public class SystemMonitor
     {
         public double CPUTemperture { get; set; }
     }
